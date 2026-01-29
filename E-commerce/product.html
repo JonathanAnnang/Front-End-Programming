@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Details | Sasa Electronics</title>
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo">SASA</div>
+    <div class="nav-links">
+        <a href="index.html">Shop</a>
+        <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+    </div>
+</header>
+
+<div id="product-detail" style="padding: 30px;"></div>
+
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script>
+const params = new URLSearchParams(window.location.search);
+const id = parseInt(params.get("id"));
+const product = products.find(p => p.id === id);
+
+const detailDiv = document.getElementById("product-detail");
+
+if (!product) {
+    detailDiv.innerHTML = "<p>Product not found.</p>";
+} else {
+   detailDiv.innerHTML = `
+    <div style="display:flex; gap:20px; flex-wrap:wrap;">
+        <div>
+            <img id="main-image" src="${product.images[0]}" style="width:300px;height:250px;object-fit:contain;">
+            <div style="display:flex; gap:10px; margin-top:10px;">
+                ${product.images.map(img => `
+                    <img src="${img}" style="width:60px;height:60px;cursor:pointer;border:1px solid #ccc;"
+                        onclick="document.getElementById('main-image').src='${img}'">
+                `).join("")}
+            </div>
+        </div>
+
+        <div>
+            <h2>${product.name}</h2>
+            <p>${product.desc}</p>
+            <h3>GHS ${product.price}</h3>
+            <button onclick="addToCart(${product.id})">Add to Cart</button>
+        </div>
+    </div>
+`;
+}
+
+updateCartCount();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sasa Electronics</title>
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo">SASA</div>
+
+    <input type="text" id="searchInput" placeholder="Search appliances..." />
+
+    <div class="nav-links">
+        <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+    </div>
+</header>
+
+<nav class="categories">
+    <button onclick="filterCategory('all')">All</button>
+    <button onclick="filterCategory('tv')">TVs</button>
+    <button onclick="filterCategory('fridge')">Fridges</button>
+    <button onclick="filterCategory('ac')">Air Conditioners</button>
+</nav>
+
+<section class="hero">
+    <h1>Electronics Deals</h1>
+</section>
+
+<section id="product-list" class="products"></section>
+
+<script src="js/products.js"></script>
+<script src="js/main.js"></script>
+<script src="js/cart.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Cart | Sasa Electronics</title>
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo"><a href ="index.html">SASA</a></div>
+    <div class="nav-links">
+        <a href="index.html">Shop</a>
+        <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+    </div>
+</header>
+
+<h2 style="text-align:center; margin:20px 0;">Shopping Cart</h2>
+
+<div id="cart-items" style="padding: 20px;"></div>
+
+<div style="text-align:center; margin: 20px;">
+    <h3>Total: GHS <span id="cart-total">0</span></h3>
+    <a href="checkout.html"><button>Proceed to Checkout</button></a>
+</div>
+
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script>
+const cartItemsDiv = document.getElementById("cart-items");
+const cartTotal = document.getElementById("cart-total");
+
+function renderCart() {
+    const cart = getCart();
+    cartItemsDiv.innerHTML = "";
+    let total = 0;
+
+    if (cart.length === 0) {
+        cartItemsDiv.innerHTML = "<p>Your cart is empty.</p>";
+        cartTotal.textContent = "0";
+        return;
+    }
+
+    cart.forEach(item => {
+        const product = products.find(p => p.id === item.id);
+        const itemTotal = product.price * item.qty;
+        total += itemTotal;
+
+        cartItemsDiv.innerHTML += `
+            <div class="product-card">
+                <h3>${product.name}</h3>
+                <p>Price: GHS ${product.price}</p>
+                <p>Quantity: ${item.qty}</p>
+                <p>Subtotal: GHS ${itemTotal}</p>
+            </div>
+        `;
+    });
+
+    cartTotal.textContent = total;
+}
+
+renderCart();
+updateCartCount();
+</script>
+
+</body>
+</html>
